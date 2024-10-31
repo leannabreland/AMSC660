@@ -74,8 +74,8 @@ function [L, P, A_permuted] = MyDissection(A, nx_grid, ny_grid, level)
         return;
     end
 
-    N_grid = size(A, 1); % Current size of the matrix at this level
-    par = mod(level, 2); % Parity to determine split direction
+    N_grid = size(A, 1); 
+    par = mod(level, 2); 
 
     % Determine split direction and compute indices
     switch par
@@ -120,7 +120,7 @@ function [L, P, A_permuted] = MyDissection(A, nx_grid, ny_grid, level)
     N1 = length(ind_Omega1);
     N3 = length(ind_Omega3);
     N2 = length(ind_Omega2);
-    n_current = N1 + N3 + N2; % Total size at current level
+    n_current = N1 + N3 + N2; 
 
     % Recursive calls
     A11 = A(ind_Omega1, ind_Omega1);
