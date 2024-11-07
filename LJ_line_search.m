@@ -1,7 +1,7 @@
 function [fvals, ngvals, iter, f, norm_g] = LJ_line_search(direction, model, m)
     % LJ_line_search performs minimization on LJ7 using specified direction.
     
-    if nargin < 3  % If m is not provided, default to 5
+    if nargin < 3 
         m = 5;
     end
 
@@ -392,8 +392,7 @@ col = jet(Na);
 
 hold on;
 for i = 1 : Na
-    patch('Vertices',verts + e*xyz(:,i)','Faces',faces,'Facecolor',col(i,:),...
-        'EdgeColor','none','LineStyle','none');
+    patch('Vertices',verts + e*xyz(:,i)','Faces',faces,'Facecolor',col(i,:),'EdgeColor','none','LineStyle','none');
 end
 camlight('headlight');
 lighting gouraud
