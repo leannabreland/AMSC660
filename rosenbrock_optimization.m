@@ -21,23 +21,23 @@ function rosenbrock_optimization
         fprintf('Final position for BFGS: (%.4f, %.4f)\n', x_bfgs(1), x_bfgs(2));
 
         % Generate a finer grid for the Rosenbrock contour plot
-[X, Y] = meshgrid(-2:0.05:2, -1:0.05:3); % Increased resolution and range
+[X, Y] = meshgrid(-2:0.05:2, -1:0.05:3); 
 Z = 100 * (Y - X.^2).^2 + (1 - X).^2; % Rosenbrock function for contour plot
 
 % Plot the Rosenbrock function contours
 figure;
-contour(X, Y, Z, 'LineColor', 'k'); % Use black lines for contour
-colormap('cool'); % Use a distinct colormap for the filled contours
+contour(X, Y, Z, 'LineColor', 'k'); 
+colormap('cool');
 hold on;
 title('Rosenbrock Function Contours with Iterations', 'FontSize', 14);
 xlabel('x', 'FontSize', 12);
 ylabel('y', 'FontSize', 12);
 
-% Plot filled contours with transparency (optional)
-contourf(X, Y, Z, 'LineColor', 'none'); % Fill contours without lines
-alpha(0.5); % Set transparency for filled contours
 
-% Plot iteration trajectories with distinct colors
+contourf(X, Y, Z, 'LineColor', 'none'); 
+alpha(0.5); 
+
+
 plot(iter_sd(1:5:end,1), iter_sd(1:5:end,2), 'r-o', 'MarkerSize', 6, 'LineWidth', 1.5, 'DisplayName', 'SD Trajectory'); % Steepest Descent
 plot(iter_newton(1:5:end,1), iter_newton(1:5:end,2), 'g--s', 'MarkerSize', 8, 'LineWidth', 1.5, 'DisplayName', 'Newton Trajectory'); % Newton
 plot(iter_bfgs(1:5:end,1), iter_bfgs(1:5:end,2), 'b-^', 'MarkerSize', 6, 'LineWidth', 1.5, 'DisplayName', 'BFGS Trajectory'); % BFGS
@@ -45,7 +45,7 @@ plot(iter_bfgs(1:5:end,1), iter_bfgs(1:5:end,2), 'b-^', 'MarkerSize', 6, 'LineWi
 % Mark the optimum point
 plot(1, 1, 'ko', 'MarkerFaceColor', 'k', 'DisplayName', 'Optimum (1, 1)');
 legend('show', 'Location', 'best');
-grid on; % Enable grid
+grid on;
 hold off;
 
 
@@ -74,7 +74,7 @@ function [x, alpha_k, iter] = steepest_descent(func, initial_guess, alpha0)
     x = initial_guess(:)'; % Ensure x is a 1x2 row vector
     alpha_k = zeros(1, 3000); % Preallocate for maximum iterations
     max_iter = 3000;
-    tol = 1e-8; % Tighter tolerance
+    tol = 1e-8; 
     iter = zeros(max_iter, 2); % Store iterations
 
     for k = 1:max_iter
@@ -83,7 +83,7 @@ function [x, alpha_k, iter] = steepest_descent(func, initial_guess, alpha0)
 
         % Backtracking line search
         while func(x(1) - alpha * grad(1), x(2) - alpha * grad(2)) > func(x(1), x(2)) - 0.001 * alpha * norm(grad)^2
-            alpha = alpha / 2; % Reduce alpha
+            alpha = alpha / 2; 
         end
         
         % Update step
@@ -192,7 +192,7 @@ function [x, alpha_k, iter] = bfgs_method(func, initial_guess, alpha0)
         grad_new = numerical_gradient(func, x(1), x(2));
         y = (grad_new - grad)'; % Gradient difference vector
 
-        % Only update B if y and s provide a meaningful update
+    
         if dot(y, s) > 1e-10
             B = B + (y * y') / dot(y, s) - (B * (s * s') * B) / (s' * B * s);
         end
